@@ -10,5 +10,33 @@
   <%= @playlist.user.name %>
 </p>
 
+
 <%= link_to 'Edit', edit_playlist_path(@playlist) %> |
 <%= link_to 'Back', playlists_path %>
+<hr>
+
+<%= form_with(model: [@playlist, @song], local: true) do |form| %>
+
+  <%= form.label :artist %>
+  <%= form.text_field :artist %>
+
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.submit :guardar %>
+<% end %>
+<hr>
+
+<table>
+  <tr>
+    <th>Artista</th>
+    <th>Canción</th>
+  </tr>
+  <% @songs.each do |song| %>
+    <tr>
+      <td><%= song.artist %></td>
+      <td><%= song.name %></td>
+      <td><%= link_to 'Delete', playlist_song_path(@playlist.id, song.id), method: :delete %></td>
+    </tr>
+  <% end %>
+</table>
